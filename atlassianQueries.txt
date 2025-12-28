@@ -27,3 +27,14 @@
     }
   }
 }
+
+# Query for all sprints TODO: projectID
+query {
+  sprints {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+  }
+}
