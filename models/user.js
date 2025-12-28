@@ -53,14 +53,14 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'positionID',
             },
         },
-        teamID: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            references: {
-                model: 'Teams',
-                key: 'teamID',
-            },
-        },
+        // teamID: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: true,
+        //     references: {
+        //         model: 'Teams',
+        //         key: 'teamID',
+        //     },
+        // },
     }, {
         sequelize,
         modelName: 'User',

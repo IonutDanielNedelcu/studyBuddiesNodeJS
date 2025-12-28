@@ -1,0 +1,26 @@
+const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } = require('graphql');
+const RoleType = require('./roleType');
+
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  fields: {
+    userID: { type: GraphQLInt },
+    email: { type: GraphQLString },
+    username: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    positionID: { type: GraphQLInt },
+    teamID: { type: GraphQLInt },
+    roles: {
+      type: new GraphQLList(RoleType),
+      resolve: (user, _args, context) => {
+        const targetId = user.userID || user.id;
+        const { authorizeOrSelf } = require('../../utils/authorize');
+        authorizeOrSelf(context, targetId, ['Admin', 'Manager']);
+        return user.roles || [];
+      },
+    },
+  },
+});
+
+module.exports = UserType;

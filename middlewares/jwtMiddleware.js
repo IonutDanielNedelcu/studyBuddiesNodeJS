@@ -17,15 +17,27 @@ const jwtMiddleware = async (request, response, next) => {
     try {
         const payload = jwt.verify(token, JWT_SECRET_KEY);
         const subjectId = payload.sub;
-        const user = await db.User.findByPk(subjectId);
 
-        if (!user) {
-            console.error("No user found for the given token!");
-            next();
-            return;
+        // If token contains roles, avoid DB lookup and trust token claims
+        if (payload.roles && Array.isArray(payload.roles)) {
+            request.userData = {
+                userID: subjectId,
+                roles: payload.roles.map(r => ({ name: r })),
+            };
+        } else {
+            // fallback to DB lookup (includes roles)
+            const user = await db.User.findByPk(subjectId, {
+                include: [{ model: db.Role, as: 'roles' }],
+            });
+
+            if (!user) {
+                console.error("No user found for the given token!");
+                next();
+                return;
+            }
+
+            request.userData = user;
         }
-
-        request.userData = user;
 
     } catch(e) {
         console.log("Invalid token encountered");
