@@ -2,12 +2,15 @@ const { GraphQLObjectType } = require('graphql');
 const register = require('../mutations/registerMutation');
 const login = require('../mutations/loginMutation');
 const addRoleToUser = require('../mutations/addRoleToUserMutation');
-const createSprint = require('../mutations/createSprint');
-const updateSprint = require('../mutations/updateSprint');
-const deleteSprint = require('../mutations/deleteSprint');
-const createTask = require('../mutations/createTask');
-const updateTask = require('../mutations/updateTask');
-const deleteTask = require('../mutations/deleteTask');
+const createSprint = require('../mutations/createSprintMutation');
+const updateSprint = require('../mutations/updateSprintMutation');
+const deleteSprint = require('../mutations/deleteSprintMutation');
+const createTask = require('../mutations/createTaskMutation');
+const updateTask = require('../mutations/updateTaskMutation');
+const deleteTask = require('../mutations/deleteTaskMutation');
+const createComment = require('../mutations/createCommentMutation');
+const updateComment = require('../mutations/updateCommentMutation');
+const deleteComment = require('../mutations/deleteCommentMutation');
 
 
 const MutationType = new GraphQLObjectType({
@@ -22,6 +25,9 @@ const MutationType = new GraphQLObjectType({
     createTask,
     updateTask,
     deleteTask,
+    createComment,
+    updateComment,
+    deleteComment,
   },
 });
 

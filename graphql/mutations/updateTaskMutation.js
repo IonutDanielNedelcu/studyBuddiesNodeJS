@@ -1,6 +1,6 @@
 const { GraphQLNonNull } = require('graphql');
 const TaskType = require('../types/taskType');
-const UpdateTaskInput = require('../inputTypes/UpdateTaskInputType');
+const UpdateTaskInput = require('../inputTypes/updateTaskInputType');
 const db = require('../../models');
 
 module.exports = {
@@ -13,11 +13,11 @@ module.exports = {
       const task = await db.Task.findByPk(input.taskID);
       if (!task) throw new Error('Task not found');
 
-    // Resolve `assigneeUsername` into `assigneeUserID`.
-    // - if the field is absent: keep existing assignee
-    // - if the field is present and null: explicit request to clear assignee (Not permitted)
-    // - if the field is present: look up user by username and set the id
-    let assigneeUserID = task.assigneeUserID;
+      // Resolve `assigneeUsername` into `assigneeUserID`.
+      // - if the field is absent: keep existing assignee
+      // - if the field is present and null: explicit request to clear assignee (Not permitted)
+      // - if the field is present: look up user by username and set the id
+      let assigneeUserID = task.assigneeUserID;
       if (Object.prototype.hasOwnProperty.call(input, 'assigneeUsername')) {
         if (input.assigneeUsername === null) {
           throw new Error('Assignee cannot be set to null');
