@@ -5,6 +5,9 @@ const addRoleToUser = require('../mutations/addRoleToUserMutation');
 const createSprint = require('../mutations/createSprint');
 const updateSprint = require('../mutations/updateSprint');
 const deleteSprint = require('../mutations/deleteSprint');
+const createTask = require('../mutations/createTask');
+const updateTask = require('../mutations/updateTask');
+const deleteTask = require('../mutations/deleteTask');
 
 
 const MutationType = new GraphQLObjectType({
@@ -16,6 +19,9 @@ const MutationType = new GraphQLObjectType({
     createSprint,
     updateSprint,
     deleteSprint,
+    createTask,
+    updateTask,
+    deleteTask,
   },
 });
 

@@ -6,6 +6,12 @@ const me = require('../queries/meQuery');
 const sprints = require('../queries/sprintsQuery');
 const sprintsFromProject = require('../queries/sprintsFromProjectQuery');
 const sprint = require('../queries/sprintQuery');
+const tasks = require('../queries/tasksQuery');
+const task = require('../queries/taskQuery');
+const tasksFromSprint = require('../queries/tasksFromSprintQuery');
+const tasksFromProject = require('../queries/tasksFromProjectQuery');
+const tasksOfEmployee = require('../queries/tasksOfEmployeeQuery');
+const tasksWithStatus = require('../queries/tasksWithStatusQuery');
 
 
 const QueryType = new GraphQLObjectType({
@@ -22,6 +28,12 @@ const QueryType = new GraphQLObjectType({
     sprints,
     sprintsFromProject,
     sprint,
+    tasks,
+    tasksFromSprint,
+    task,
+    tasksFromProject,
+    tasksOfEmployee,
+    tasksWithStatus,
   },
 });
 

@@ -32,7 +32,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface /* , Sequelize */) {
     await queryInterface.dropTable('Sprints');
   }
 };
