@@ -1,6 +1,6 @@
 const { GraphQLNonNull } = require('graphql');
 const SprintType = require('../types/sprintType');
-const UpdateSprintInput = require('../inputTypes/updateSprintInput');
+const UpdateSprintInput = require('../inputTypes/UpdateSprintInputType');
 const { authorizeRoles } = require('../../utils/authorize');
 const db = require('../../models');
 

@@ -7,8 +7,12 @@ module.exports = {
     type: new GraphQLList(SprintType),
     resolve: async (_source, _args, context) => {
         authorizeRoles(context, ['Admin', 'Manager']);
-        // TODO: add project details when Project model is created
-        const sprints = await db.Sprint.findAll();
+        const includes = [];
+        if (db.Project) {
+            includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
+        }
+
+        const sprints = await db.Sprint.findAll({ include: includes });
         return sprints;
     },
 };

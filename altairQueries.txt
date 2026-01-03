@@ -1,3 +1,6 @@
+# -----------------------------
+# Roles
+# -----------------------------
 
 # Query for all roles
 {
@@ -40,7 +43,9 @@
   }
 }
 
-
+# -----------------------------
+# Positions
+# -----------------------------
 
 # All positions
 { 
@@ -72,7 +77,9 @@
   } 
 }
 
-
+# -----------------------------
+# Teams
+# -----------------------------
 
 # All teams
 { 
@@ -90,4 +97,516 @@
     teamID 
     name 
   } 
+}
+
+# -----------------------------
+# Sprints
+# -----------------------------
+
+# All sprints
+{
+  sprints {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+    project {
+      projectID
+      name
+    }
+  }
+}
+
+# Sprint by projectName + sprintNumber
+{
+  sprint(projectName: "Project1", sprintNumber: 1) {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Sprints from a project (by projectName)
+{
+  sprintsFromProject(projectName: "Project1") {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+  }
+}
+
+
+# -----------------------------
+# Tasks
+# -----------------------------
+
+# All tasks
+{
+  tasks {
+    taskID
+    name
+    description
+    status
+    reporter { 
+      userID 
+      username 
+    }
+    assignee { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Tasks for a sprint (by projectName + sprintNumber)
+{
+  tasksFromSprint(projectName: "Project1", sprintNumber: "1") {
+    taskID
+    name
+    description
+    status
+    reporter { 
+      userID 
+      username 
+    }
+    assignee { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Tasks for a project (by projectName)
+{
+  tasksFromProject(projectName: "Project1") {
+    taskID
+    name
+    description
+    status
+    reporter { 
+      userID 
+      username 
+    }
+    assignee { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Task by ID
+{
+  task(taskID: 1) {
+    taskID
+    name
+    description
+    status
+    reporter { 
+      userID 
+      username 
+    }
+    assignee { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Tasks for an employee (by employeeUsername)
+{
+  tasksOfEmployee(employeeUsername: "alice") {
+    taskID
+    name
+    description
+    status
+    reporter { 
+      userID 
+      username 
+    }
+    assignee { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Tasks with a given status
+{
+  tasksWithStatus(status: "Open") {
+    taskID
+    name
+    description
+    status
+    reporter { 
+      userID 
+      username 
+    }
+    assignee { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+
+# -----------------------------
+# Comments
+# -----------------------------
+
+# Comments for a task
+{
+  commentsByTask(taskID: 1) {
+    commentID
+    text
+    date
+    user { 
+      userID 
+      username 
+    }
+    task { 
+      taskID 
+      name 
+    }
+  }
+}
+
+# All comments 
+{
+  comments {
+    commentID
+    text
+    date
+    user { 
+      userID 
+      username 
+    }
+    task { 
+      taskID 
+      name 
+    }
+  }
+}
+
+# Comment by ID
+{
+  comment(commentID: 1) {
+    commentID
+    text
+    date
+    user { 
+      userID 
+      username 
+    }
+    task { 
+      taskID 
+      name 
+    }
+  }
+}
+
+# Comments by employee username
+{
+  commentsOfEmployee(employeeUsername: "alice") {
+    commentID
+    text
+    date
+    user { 
+      userID 
+      username 
+    }
+    task { 
+      taskID 
+      name 
+    }
+  }
+}
+
+
+# -----------------------------
+# Paginated queries 
+# -----------------------------
+
+# Sprints
+{
+  sprintsPage(offset: 0, limit: 20) {
+    totalCount
+    hasMore
+    items {
+      sprintID
+      number
+      description
+      startDate
+      endDate
+      project { 
+        projectID 
+        name 
+      }
+    }
+  }
+}
+
+# Sprints from a project
+{
+  sprintsFromProjectPage(projectName: "Project1", offset: 0, limit: 10) {
+    totalCount
+    hasMore
+    items {
+      sprintID
+      number
+      description
+      startDate
+      endDate
+      project { 
+        projectID 
+        name 
+      }
+    }
+  }
+}
+
+# Tasks
+{
+  tasksPage(offset: 0, limit: 20) {
+    totalCount
+    hasMore
+    items {
+      taskID
+      name
+      description
+      status
+      reporter { 
+        userID 
+        username 
+      }
+      assignee { 
+        userID 
+        username 
+      }
+      sprint { 
+        sprintID 
+        number 
+      }
+      project { 
+        projectID 
+        name 
+      }
+    }
+  }
+}
+
+# Tasks from a project
+{
+  tasksFromProjectPage(projectName: "Project1", offset: 0, limit: 20) {
+    totalCount
+    hasMore
+    items { 
+      taskID 
+      name 
+      description 
+      status 
+      reporter { 
+        userID 
+        username 
+      }
+      assignee { 
+        userID 
+        username 
+      }
+      sprint { 
+        sprintID 
+        number 
+      }
+      project { 
+        projectID 
+        name 
+      }
+    }
+  }
+}
+
+# Tasks from a sprint
+{
+  tasksFromSprintPage(projectName: "Project1", sprintNumber: "1", offset: 0, limit: 20) {
+    totalCount
+    hasMore
+    items { 
+      taskID 
+      name 
+      description 
+      status 
+      reporter { 
+        userID 
+        username 
+      }
+      assignee { 
+        userID 
+        username 
+      }
+      sprint { 
+        sprintID 
+        number 
+      }
+      project { 
+        projectID 
+        name 
+      }
+    }  }
+}
+
+# Tasks of an employee
+{
+  tasksOfEmployeePage(employeeUsername: "alice", offset: 0, limit: 20) {
+    totalCount
+    hasMore
+    items { 
+      taskID 
+      name 
+      description 
+      status 
+      reporter { 
+        userID 
+        username 
+      }
+      assignee { 
+        userID 
+        username 
+      }
+      sprint { 
+        sprintID 
+        number 
+      }
+      project { 
+        projectID 
+        name 
+      }
+    }  
+  }
+}
+
+# Tasks with status
+{
+  tasksWithStatusPage(status: "Open", offset: 0, limit: 20) {
+    totalCount
+    hasMore
+    items { 
+      taskID 
+      name 
+      description 
+      status 
+      reporter { 
+        userID 
+        username 
+      }
+      assignee { 
+        userID 
+        username 
+      }
+      sprint { 
+        sprintID 
+        number 
+      }
+      project { 
+        projectID 
+        name 
+      }
+    }
+  }
+}
+
+# Comments
+{
+  commentsPage(offset: 0, limit: 10) {
+    totalCount
+    hasMore
+    items { 
+      commentID 
+      text 
+      date 
+      user { 
+        userID 
+        username 
+      } 
+      task { 
+        taskID 
+        name 
+      } 
+    }
+  }
+}
+
+# Comments by task
+{
+  commentsByTaskPage(taskID: 1, offset: 0, limit: 10) {
+    totalCount
+    hasMore
+    items { 
+      commentID 
+      text 
+      date 
+      user { 
+        userID 
+        username 
+      } 
+      task { 
+        taskID 
+        name 
+      } 
+    }  }
 }

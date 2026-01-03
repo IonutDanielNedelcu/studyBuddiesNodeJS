@@ -1,6 +1,6 @@
 const { GraphQLNonNull } = require('graphql');
 const TaskType = require('../types/taskType');
-const UpdateTaskInput = require('../inputTypes/updateTaskInputType');
+const UpdateTaskInput = require('../inputTypes/UpdateTaskInputType');
 const db = require('../../models');
 
 module.exports = {
@@ -70,8 +70,7 @@ module.exports = {
       includes.push({ model: db.User, as: 'reporter', attributes: ['userID', 'username', 'email'] });
       includes.push({ model: db.User, as: 'assignee', attributes: ['userID', 'username', 'email'] });
       includes.push({ model: db.Sprint, as: 'sprint', attributes: ['sprintID', 'number'] });
-      // TODO: uncomment
-      //includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
+      includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
 
       const updatedTask = await db.Task.findByPk(task.taskID, { include: includes });
       return updatedTask;

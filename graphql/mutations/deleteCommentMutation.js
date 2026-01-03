@@ -1,5 +1,5 @@
 'use strict';
-const { GraphQLNonNull, GraphQLString } = require('graphql');
+const { GraphQLNonNull, GraphQLString, GraphQLInt } = require('graphql');
 const UpdateCommentInput = require('../inputTypes/updateCommentInput');
 const db = require('../../models');
 

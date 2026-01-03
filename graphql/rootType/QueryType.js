@@ -12,16 +12,25 @@ const userByUsername = require('../queries/userByUsernameQuery');
 const sprints = require('../queries/sprintsQuery');
 const sprintsFromProject = require('../queries/sprintsFromProjectQuery');
 const sprint = require('../queries/sprintQuery');
+const sprintsPage = require('../queries/sprintsPageQuery');
+const sprintsFromProjectPage = require('../queries/sprintsFromProjectPageQuery');
 const tasks = require('../queries/tasksQuery');
 const task = require('../queries/taskQuery');
 const tasksFromSprint = require('../queries/tasksFromSprintQuery');
 const tasksFromProject = require('../queries/tasksFromProjectQuery');
 const tasksOfEmployee = require('../queries/tasksOfEmployeeQuery');
 const tasksWithStatus = require('../queries/tasksWithStatusQuery');
+const tasksPage = require('../queries/tasksPageQuery');
+const tasksFromProjectPage = require('../queries/tasksFromProjectPageQuery');
+const tasksFromSprintPage = require('../queries/tasksFromSprintPageQuery');
+const tasksOfEmployeePage = require('../queries/tasksOfEmployeePageQuery');
+const tasksWithStatusPage = require('../queries/tasksWithStatusPageQuery');
 const comments = require('../queries/commentsQuery');
 const comment = require('../queries/commentQuery');
 const commentsByTask = require('../queries/commentsByTaskQuery');
 const commentsOfEmployee = require('../queries/commentsOfEmployeeQuery');
+const commentsPage = require('../queries/commentsPageQuery');
+const commentsByTaskPage = require('../queries/commentsByTaskPageQuery');
 
 
 const QueryType = new GraphQLObjectType({
@@ -42,16 +51,25 @@ const QueryType = new GraphQLObjectType({
     userByUsername,
     role,
     sprints,
+    sprintsPage,
     sprintsFromProject,
+    sprintsFromProjectPage,
     sprint,
     tasks,
+    tasksPage,
     tasksFromSprint,
+    tasksFromSprintPage,
     task,
     tasksFromProject,
+    tasksFromProjectPage,
     tasksOfEmployee,
+    tasksOfEmployeePage,
     tasksWithStatus,
+    tasksWithStatusPage,
     comments,
+    commentsPage,
     commentsByTask,
+    commentsByTaskPage,
     comment,
     commentsOfEmployee,
   },

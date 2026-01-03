@@ -60,8 +60,7 @@ module.exports = {
       includes.push({ model: db.User, as: 'reporter', attributes: ['userID', 'username', 'email'] });
       includes.push({ model: db.User, as: 'assignee', attributes: ['userID', 'username', 'email'] });
       includes.push({ model: db.Sprint, as: 'sprint', attributes: ['sprintID', 'number'] });
-      // TODO: uncomment
-      //includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
+      includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
 
       const task = await db.Task.findByPk(newTask.taskID, { include: includes });
       return task;

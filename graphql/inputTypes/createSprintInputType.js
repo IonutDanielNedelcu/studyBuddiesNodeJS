@@ -10,5 +10,3 @@ module.exports = new GraphQLInputObjectType({
     projectID: { type: GraphQLInt },
   },
 });
-
-module.exports = CreateSprintInputType;

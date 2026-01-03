@@ -1,8 +1,9 @@
 'use strict';
 const { GraphQLNonNull } = require('graphql');
 const CommentType = require('../types/commentType');
-const CreateCommentInput = require('../inputTypes/createCommentInput');
+const CreateCommentInput = require('../inputTypes/createCommentInputType');
 const db = require('../../models');
+const { getViewer } = require('../../utils/authorize');
 
 module.exports = {
   type: CommentType,
@@ -11,18 +12,18 @@ module.exports = {
   },
   resolve: async (_source, { input }, context) => {
     // Determine creator from context
-    const viewer = context && context.user;
-    if (!viewer) throw new Error('Not authenticated');
+    const creator = getViewer(context);
+    if (!creator || !creator.userID) throw new Error('Not authenticated');
+    const creatorId = creator.userID;;
 
-    // ensure task exists
+    // Ensure task exists
     const task = await db.Task.findByPk(input.taskID);
     if (!task) throw new Error('Task not found');
 
-    // date is set server-side to the current timestamp
     const comment = await db.Comment.create({
       text: input.text,
       date: new Date(),
-      userID: viewer.userID || viewer.id,
+      userID: creatorId,
       taskID: input.taskID,
     });
 

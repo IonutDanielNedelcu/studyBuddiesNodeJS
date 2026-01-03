@@ -24,8 +24,10 @@ const TaskType = new GraphQLObjectType({
       type: require('./sprintType'),
       resolve: (task) => task.sprint || null,
     },
-    // project nested field can be enabled when Project type/model exists
-    // project: { type: require('./projectType'), resolve: (task) => task.project || null },
+    project: {
+      type: require('./projectType'),
+      resolve: (task) => task.project,
+    },
   },
 });
 

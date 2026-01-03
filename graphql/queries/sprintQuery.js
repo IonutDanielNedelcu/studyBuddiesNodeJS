@@ -9,6 +9,14 @@ module.exports = {
     sprintNumber: { type: GraphQLInt },
   },
   resolve: async (_source, { projectName, sprintNumber }) => {
-    return db.Sprint.findOne({ where: { projectName, sprintNumber } });
+    const where = {};
+    if (typeof sprintNumber !== 'undefined') where.number = sprintNumber;
+    if (typeof projectName !== 'undefined' && projectName !== null) {
+      const project = await db.Project.findOne({ where: { name: projectName } });
+      if (!project) return null;
+      where.projectID = project.projectID;
+    }
+
+    return db.Sprint.findOne({ where });
   },
 };

@@ -13,6 +13,7 @@ mutation {
 }
 
 
+
 # Mutation for login
 mutation Login($input: LoginInput!) {
   login(input: $input) {
@@ -33,6 +34,7 @@ mutation { logout }
 mutation {
   removeUser(username: "bob")
 }
+
 
 
 # Mutation for adding a position to someone
@@ -71,4 +73,130 @@ mutation {
     name
     seniority
   }
+}
+
+
+
+# Mutation for creating a new sprint
+mutation {
+  createSprint(input: { number: 1, description: "Sprint 1", startDate: "2026-06-01", endDate: "2026-06-15", projectID: 1 }) {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Mutation for updating a sprint
+mutation {
+  updateSprint(input: { sprintID: 1, number: 6, description: "Updated" }) {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+  }
+}
+
+# Mutation for deleting a sprint
+mutation {
+  deleteSprint(sprintID: 1)
+}
+
+
+
+# Mutation for creating a new task
+mutation {
+  createTask(input: { name: "Implement login", description: "Add JWT login flow", status: "Open", assigneeUsername: "alice", projectName: "Project1", sprintNumber: 1 }) {
+    taskID
+    name
+    description
+    status
+    assignee { 
+      userID 
+      username 
+    }
+    reporter { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Mutation for updating a task
+mutation {
+  updateTask(input: { taskID: 1, name: "Fix login bug", status: "InProgress", assigneeUsername: "alice", projectName: "Project1", sprintNumber: 1 }) {
+    taskID
+    name
+    status
+    assignee { 
+      userID 
+      username 
+    }
+    reporter { 
+      userID 
+      username 
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Mutation for deleting a task
+mutation {
+  deleteTask(taskID: 1)
+}
+
+
+
+# Mutation for creating a new comment
+mutation {
+  createComment(input: { text: "Uncomment the test after fixing", taskID: 1 }) {
+    commentID
+    text
+    date
+    user { 
+      userID 
+      username 
+    }
+    task { 
+      taskID 
+      name 
+    }
+  }
+}
+
+# Mutation for updating a comment
+mutation {
+  updateComment(input: { commentID: 1, text: "Updated: Uncomment the test after fixing" }) {
+    commentID
+    text
+    date
+    user { userID username }
+    task { taskID name }
+  }
+}
+
+# Mutation for deleting a comment
+mutation {
+  deleteComment(commentID: 1)
 }

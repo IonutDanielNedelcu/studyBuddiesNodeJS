@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             Task.belongsTo(models.User, { foreignKey: 'assigneeUserID', as: 'assignee' });
 
             Task.belongsTo(models.Sprint, { foreignKey: 'sprintID', as: 'sprint' });
-            // TODO: uncomment 
-            // Task.belongsTo(models.Project, { foreignKey: 'projectID', as: 'project' });
+            Task.belongsTo(models.Project, { foreignKey: 'projectID', as: 'project' });
         }
     }
 
@@ -51,12 +50,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         projectID: {
             type: DataTypes.INTEGER,
-            allowNull: true,
-            // TODO: also change allowNull to false
-            // references: {
-            //     model: 'Projects',
-            //     key: 'projectID',
-            // },
+            allowNull: false,
+            references: {
+                model: 'Projects',
+                key: 'projectID',
+            },
         },
         sprintID: {
             type: DataTypes.INTEGER,

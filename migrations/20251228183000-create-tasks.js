@@ -37,8 +37,10 @@ module.exports = {
       },
       projectID: {
         type: Sequelize.INTEGER,
-        allowNull: true,
-        // references: { model: 'Projects', key: 'projectID' }, // TODO: enable when Projects table exists
+        allowNull: false,
+        references: { model: 'Projects', key: 'projectID' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
 
       },
       sprintID: {

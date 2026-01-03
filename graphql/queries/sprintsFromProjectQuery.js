@@ -8,6 +8,9 @@ module.exports = {
     projectName: { type: GraphQLString },
   },
   resolve: async (_source, { projectName }) => {
-    return db.Sprint.findAll({ where: { projectName } });
+    if (projectName == null) return [];
+    const project = await db.Project.findOne({ where: { name: projectName } });
+    if (!project) return [];
+    return db.Sprint.findAll({ where: { projectID: project.projectID } });
   },
 };

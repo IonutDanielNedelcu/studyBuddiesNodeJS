@@ -10,5 +10,3 @@ module.exports = new GraphQLInputObjectType({
     endDate: { type: GraphQLString },
   },
 });
-
-module.exports = UpdateSprintInputType;
