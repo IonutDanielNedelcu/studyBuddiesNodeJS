@@ -7,6 +7,10 @@ module.exports = {
   type: new GraphQLList(TeamType),
   resolve: async (_source, _args, context) => {
     authorizeRoles(context, ['Admin', 'Manager']);
-    return db.Team.findAll();
+    const teams = await db.Team.findAll();
+    if (!teams || teams.length === 0) {
+      throw new Error('No teams found');
+    }
+    return teams;
   },
 };

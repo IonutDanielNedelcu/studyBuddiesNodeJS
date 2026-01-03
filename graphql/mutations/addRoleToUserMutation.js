@@ -19,8 +19,11 @@ module.exports = {
     const role = await db.Role.findOne({ where: { name: roleName } });
     if (!role) throw new Error('Role not found');
 
-    // associate role with user if not already
-    await db.UserRole.findOrCreate({ where: { userID: user.userID, roleID: role.roleID }, defaults: { userID: user.userID, roleID: role.roleID } });
+    // check if user already has role
+    const existing = await db.UserRole.findOne({ where: { userID: user.userID, roleID: role.roleID } });
+    if (existing) throw new Error('User already has this role');
+
+    await db.UserRole.create({ userID: user.userID, roleID: role.roleID });
 
     const userWithRoles = await db.User.findByPk(user.userID, { include: [{ model: db.Role, as: 'roles' }] });
     return userWithRoles;

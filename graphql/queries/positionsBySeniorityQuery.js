@@ -10,6 +10,10 @@ module.exports = {
   },
   resolve: async (_source, { seniority }, context) => {
     authorizeRoles(context, ['Admin', 'Manager']);
-    return db.Position.findAll({ where: { seniority } });
+    const positions = await db.Position.findAll({ where: { seniority } });
+    if (!positions || positions.length === 0) {
+      throw new Error(`No positions found with seniority '${seniority}'`);
+    }
+    return positions;
   },
 };

@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLString } = require('graphql');
 const roles = require('../queries/rolesQuery');
-const role = require('../queries/roleQuery');
+const role = require('../queries/roleByNameQuery');
 const users = require('../queries/usersQuery');
 const me = require('../queries/meQuery');
 const positions = require('../queries/positionsQuery');

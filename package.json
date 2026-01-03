@@ -6,7 +6,7 @@
     "start": "node index.js",
     "dev": "npx nodemon index.js",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "jest --runInBand",
     "test:watch": "NODE_ENV=test jest --watch"
   },
   "author": "",

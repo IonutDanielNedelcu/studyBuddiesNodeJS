@@ -4,11 +4,12 @@ require('dotenv').config();
 const db = require('../models');
 
 beforeAll(async () => {
-	await db.sequelize.sync({ force: true });
+  await db.sequelize.sync({ force: true });
 });
 
-afterAll(async () => {
-	await db.sequelize.close();
-});
+// Do not close the shared Sequelize connection here because Jest may run files
+// in separate workers and closing the connection from this global setup
+// can cause "connection manager was closed" errors in other tests.
+// The test runner will exit and release resources when finished.
 
 module.exports = {};

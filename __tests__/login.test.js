@@ -10,7 +10,7 @@ test('login successful for existing user', async () => {
   const input = {
     email: `jest_login_${Date.now()}@example.com`,
     password,
-    username: null,
+    username: `user_${Date.now()}`,
     firstName: 'Jest',
     lastName: 'Login',
   };
@@ -30,7 +30,7 @@ test('login fails with invalid credentials', async () => {
   const input = {
     email: `jest_login_fail_${Date.now()}@example.com`,
     password,
-    username: null,
+    username: `user_${Date.now()}_fail`,
     firstName: 'Jest',
     lastName: 'Fail',
   };

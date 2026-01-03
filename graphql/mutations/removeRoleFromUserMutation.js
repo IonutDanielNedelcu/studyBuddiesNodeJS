@@ -18,7 +18,11 @@ module.exports = {
     const role = await db.Role.findOne({ where: { name: roleName } });
     if (!role) throw new Error('Role not found');
 
-    // remove join record(s)
+    // ensure the user has the role
+    const existing = await db.UserRole.findOne({ where: { userID: user.userID, roleID: role.roleID } });
+    if (!existing) throw new Error('User does not have this role');
+
+    // remove join record
     await db.UserRole.destroy({ where: { userID: user.userID, roleID: role.roleID } });
 
     const userWithRoles = await db.User.findByPk(user.userID, { include: [{ model: db.Role, as: 'roles' }, { model: db.Team, as: 'team' }, { model: db.Position, as: 'position' }] });
