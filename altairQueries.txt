@@ -1,0 +1,93 @@
+
+# Query for all roles
+{
+  roles {
+    roleID
+    name
+  }
+}
+
+# Query for the role with a specific name
+{
+  role(name: "Admin") {
+    roleID
+    name
+  }
+}
+
+# Query for all users (incomplete)
+
+# Enter your graphQL query here.
+{
+  users {
+    userID
+    username
+    firstName
+    lastName
+    team {
+      teamID
+      name
+    }
+    position {
+      positionID
+      seniority
+      name
+    }
+    roles {
+      roleID
+      name
+    }
+  }
+}
+
+
+
+# All positions
+{ 
+  positions 
+  { 
+    positionID 
+    name 
+    seniority 
+  } 
+}
+
+# Positions with seniority
+{ 
+  positionsBySeniority(seniority: "Senior") 
+  { 
+    positionID 
+    name 
+    seniority 
+  } 
+}
+
+# Positions with name
+{ 
+  positionsByName(name: "Frontend Developer") 
+  { 
+    positionID 
+    name 
+    seniority 
+  } 
+}
+
+
+
+# All teams
+{ 
+  teams 
+  { 
+    teamID 
+    name 
+  } 
+}
+
+# Team by name
+{ 
+  teamByName(name: "Frontend") 
+  { 
+    teamID 
+    name 
+  } 
+}

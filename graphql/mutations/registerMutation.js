@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const AuthType = require('../types/authType');
-const RegisterInputType = require('../inputTypes/registerInput');
+const RegisterInputType = require('../inputTypes/registerInputType');
 const db = require('../../models');
 const { JWT_SECRET_KEY } = require('../../constants');
 
@@ -13,9 +13,16 @@ module.exports = {
     input: { type: new GraphQLNonNull(RegisterInputType) },
   },
   async resolve(_, { input }) {
-    const existing = await db.User.findOne({ where: { email: input.email } });
-    if (existing) {
+    const existingEmail = await db.User.findOne({ where: { email: input.email } });
+    if (existingEmail) {
       throw new Error('Email already in use');
+    }
+
+    if (input.username) {
+      const existingUsername = await db.User.findOne({ where: { username: input.username } });
+      if (existingUsername) {
+        throw new Error('Username already in use');
+      }
     }
 
     const hashed = await bcrypt.hash(input.password, 10);
@@ -38,7 +45,7 @@ module.exports = {
     }
 
     // reload user with roles for returning
-    const userWithRoles = await db.User.findByPk(user.userID, { include: [{ model: db.Role, as: 'roles' }] });
+    const userWithRoles = await db.User.findByPk(user.userID, { include: [{ model: db.Role, as: 'roles' }, { model: db.Team, as: 'team' }, { model: db.Position, as: 'position' }] });
 
     const roleNames = (userWithRoles.roles || []).map(r => r.name);
     const token = jwt.sign({ sub: user.userID, roles: roleNames }, JWT_SECRET_KEY, { expiresIn: '7d' });

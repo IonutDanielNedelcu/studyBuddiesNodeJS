@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     class Project extends Model {
         static associate(models) {
             Project.belongsTo(models.Repository, { foreignKey: 'repositoryID', as: 'repository' });
-
-            Project.hasMany(models.Sprint, { foreignKey: 'projectID', as: 'sprints' });
-
-            Project.hasMany(models.Task, { foreignKey: 'projectID', as: 'tasks' });
+                // Optional associations: only add if target models are present
+                if (models.Sprint) {
+                    Project.hasMany(models.Sprint, { foreignKey: 'projectID', as: 'sprints' });
+                }
 
             Project.belongsToMany(models.User, {
                 through: models.UserProject,

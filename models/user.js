@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'positionID',
                 as: 'position'
             });
+            User.belongsTo(models.Team, { foreignKey: 'teamID', as: 'team' });
             User.belongsToMany(models.Role, {
                 through: models.UserRole,
                 foreignKey: 'userID',
@@ -53,14 +54,14 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'positionID',
             },
         },
-        // teamID: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: true,
-        //     references: {
-        //         model: 'Teams',
-        //         key: 'teamID',
-        //     },
-        // },
+        teamID: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'Teams',
+                key: 'teamID',
+            },
+        },
     }, {
         sequelize,
         modelName: 'User',
