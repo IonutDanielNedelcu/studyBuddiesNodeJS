@@ -27,7 +27,11 @@ const jwtMiddleware = async (request, response, next) => {
         } else {
             // fallback to DB lookup (includes roles)
             const user = await db.User.findByPk(subjectId, {
-                include: [{ model: db.Role, as: 'roles' }],
+                include: [
+                    { model: db.Role, as: 'roles' },
+                    { model: db.Team, as: 'team' },
+                    { model: db.Position, as: 'position' },
+                ],
             });
 
             if (!user) {

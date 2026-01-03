@@ -1,0 +1,74 @@
+# Mutation for register
+mutation {
+  register(input: {
+    email: "daniel@studybuddies.com",
+    password: "Daniel123!",
+    username: "danielnedelcu",
+    firstName: "Daniel",
+    lastName: "Nedelcu"
+  }) {
+    token
+    user { userID email username }
+  }
+}
+
+
+# Mutation for login
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    token
+    user {
+      userID
+      email
+      username
+    }
+  }
+}
+
+# Mutation for logout
+mutation { logout }
+
+
+# Mutation for removing someone
+mutation {
+  removeUser(username: "bob")
+}
+
+
+# Mutation for adding a position to someone
+mutation {
+  addPositionToUser(username: "alice", positionID: 1) {
+    userID
+    username
+    position { positionID name seniority }
+    roles { roleID name }
+  }
+}
+
+# Mutation for removing a position from someone
+mutation {
+  removePositionFromUser(username: "bob") {
+    userID
+    username
+    position { positionID name seniority }
+    roles { roleID name }
+  }
+}
+
+# Mutation for creating a new position
+mutation {
+  createPosition(name: "Cloud Engineer", seniority: "Senior") {
+    positionID
+    name
+    seniority
+  }
+}
+
+# Mutation for deleting a position
+mutation {
+  removePosition(positionID: 5) {
+    positionID
+    name
+    seniority
+  }
+}
