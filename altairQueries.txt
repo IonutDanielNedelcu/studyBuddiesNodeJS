@@ -252,6 +252,34 @@
   }
 }
 
+# User's tasks
+{
+  myTasks {
+    taskID
+    name
+    description
+    status
+    reporter { 
+      userID 
+      username 
+      email
+    }
+    assignee { 
+      userID 
+      username 
+      email
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
 # Tasks for a sprint (by projectName + sprintNumber)
 {
   tasksFromSprint(projectName: "Study Buddies Web App", sprintNumber: "2") {

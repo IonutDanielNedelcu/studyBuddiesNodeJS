@@ -30,6 +30,7 @@ const tasksFromProjectPage = require('../queries/tasksFromProjectPageQuery');
 const tasksFromSprintPage = require('../queries/tasksFromSprintPageQuery');
 const tasksOfEmployeePage = require('../queries/tasksOfEmployeePageQuery');
 const tasksWithStatusPage = require('../queries/tasksWithStatusPageQuery');
+const myTasks = require('../queries/myTasksQuery');
 const comments = require('../queries/commentsQuery');
 const comment = require('../queries/commentQuery');
 const commentsByTask = require('../queries/commentsByTaskQuery');
@@ -70,6 +71,7 @@ const QueryType = new GraphQLObjectType({
     tasksFromSprint,
     tasksFromProject,
     tasksOfEmployee,
+    myTasks,
     tasksWithStatus,
     tasksPage,
     tasksFromProjectPage,
