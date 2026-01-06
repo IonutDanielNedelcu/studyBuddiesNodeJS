@@ -9,6 +9,11 @@ const positionsByName = require('../queries/positionsByNameQuery');
 const teams = require('../queries/teamsQuery');
 const teamByName = require('../queries/teamByNameQuery');
 const userByUsername = require('../queries/userByUsernameQuery');
+const projects = require('../queries/projectsQuery');
+const repositories = require('../queries/repositoriesQuery');
+const repositoryByName = require('../queries/repositoryByNameQuery');
+const projectsByUser = require('../queries/projectsByUserQuery');
+const usersByTeam = require('../queries/usersByTeamQuery');
 const sprints = require('../queries/sprintsQuery');
 const sprintsFromProject = require('../queries/sprintsFromProjectQuery');
 const sprint = require('../queries/sprintQuery');
@@ -50,28 +55,6 @@ const QueryType = new GraphQLObjectType({
     teamByName,
     userByUsername,
     role,
-    sprints,
-    sprintsPage,
-    sprintsFromProject,
-    sprintsFromProjectPage,
-    sprint,
-    tasks,
-    tasksPage,
-    tasksFromSprint,
-    tasksFromSprintPage,
-    task,
-    tasksFromProject,
-    tasksFromProjectPage,
-    tasksOfEmployee,
-    tasksOfEmployeePage,
-    tasksWithStatus,
-    tasksWithStatusPage,
-    comments,
-    commentsPage,
-    commentsByTask,
-    commentsByTaskPage,
-    comment,
-    commentsOfEmployee,
   },
 });
 

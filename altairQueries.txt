@@ -99,6 +99,81 @@
   } 
 }
 
+
+
+# Query for all projects (with repository and assigned users)
+{
+  projects {
+    projectID
+    name
+    description
+    repository {
+      name
+      url
+    }
+    users {
+      username
+      team {
+        name
+      }
+      position {
+        name
+      }
+    }
+  }
+}
+
+# Query for all repositories
+{
+  repositories {
+    repositoryID
+    name
+    url
+  }
+}
+
+# Query for repository by name
+{
+  repositoryByName(name: "studyBuddies-frontend") {
+    repositoryID
+    name
+    url
+  }
+}
+
+# Query for all projects with full details
+{
+  projects {
+    projectID
+    name
+    description
+    repository {
+      repositoryID
+      name
+      url
+    }
+    users {
+      userID
+      username
+      firstName
+      lastName
+    }
+  }
+}
+
+# Query for projects by user
+{
+  projectsByUser(userID: 1) {
+    projectID
+    name
+    description
+    repository {
+      name
+      url
+    }
+  }
+}
+
 # -----------------------------
 # Sprints
 # -----------------------------
