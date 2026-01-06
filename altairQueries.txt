@@ -195,7 +195,7 @@
 
 # Sprint by projectName + sprintNumber
 {
-  sprint(projectName: "Project1", sprintNumber: 1) {
+  sprint(projectName: "Study Buddies Web App", sprintNumber: 1) {
     sprintID
     number
     description
@@ -210,7 +210,7 @@
 
 # Sprints from a project (by projectName)
 {
-  sprintsFromProject(projectName: "Project1") {
+  sprintsFromProject(projectName: "Study Buddies Web App") {
     sprintID
     number
     description
@@ -234,10 +234,12 @@
     reporter { 
       userID 
       username 
+      email
     }
     assignee { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -252,7 +254,7 @@
 
 # Tasks for a sprint (by projectName + sprintNumber)
 {
-  tasksFromSprint(projectName: "Project1", sprintNumber: "1") {
+  tasksFromSprint(projectName: "Study Buddies Web App", sprintNumber: "2") {
     taskID
     name
     description
@@ -260,10 +262,12 @@
     reporter { 
       userID 
       username 
+      email
     }
     assignee { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -278,7 +282,7 @@
 
 # Tasks for a project (by projectName)
 {
-  tasksFromProject(projectName: "Project1") {
+  tasksFromProject(projectName: "Study Buddies Web App") {
     taskID
     name
     description
@@ -286,10 +290,12 @@
     reporter { 
       userID 
       username 
+      email
     }
     assignee { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -304,7 +310,7 @@
 
 # Task by ID
 {
-  task(taskID: 1) {
+  task(taskID: 7) {
     taskID
     name
     description
@@ -312,10 +318,12 @@
     reporter { 
       userID 
       username 
+      email
     }
     assignee { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -338,10 +346,12 @@
     reporter { 
       userID 
       username 
+      email
     }
     assignee { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -364,10 +374,12 @@
     reporter { 
       userID 
       username 
+      email
     }
     assignee { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -387,17 +399,19 @@
 
 # Comments for a task
 {
-  commentsByTask(taskID: 1) {
+  commentsByTask(taskID: 10) {
     commentID
     text
     date
     user { 
       userID 
       username 
+      email
     }
     task { 
       taskID 
       name 
+      status
     }
   }
 }
@@ -411,27 +425,31 @@
     user { 
       userID 
       username 
+      email
     }
     task { 
       taskID 
       name 
+      status
     }
   }
 }
 
 # Comment by ID
 {
-  comment(commentID: 1) {
+  comment(commentID: 100) {
     commentID
     text
     date
     user { 
       userID 
       username 
+      email
     }
     task { 
       taskID 
       name 
+      status
     }
   }
 }
@@ -445,10 +463,12 @@
     user { 
       userID 
       username 
+      email
     }
     task { 
       taskID 
       name 
+      status
     }
   }
 }
@@ -479,7 +499,7 @@
 
 # Sprints from a project
 {
-  sprintsFromProjectPage(projectName: "Project1", offset: 0, limit: 10) {
+  sprintsFromProjectPage(projectName: "Study Buddies Web App", offset: 0, limit: 10) {
     totalCount
     hasMore
     items {
@@ -498,7 +518,7 @@
 
 # Tasks
 {
-  tasksPage(offset: 0, limit: 20) {
+  tasksPage(offset: 0, limit: 40) {
     totalCount
     hasMore
     items {
@@ -509,10 +529,12 @@
       reporter { 
         userID 
         username 
+        email
       }
       assignee { 
         userID 
         username 
+        email
       }
       sprint { 
         sprintID 
@@ -528,7 +550,7 @@
 
 # Tasks from a project
 {
-  tasksFromProjectPage(projectName: "Project1", offset: 0, limit: 20) {
+  tasksFromProjectPage(projectName: "Study Buddies Web App", offset: 0, limit: 20) {
     totalCount
     hasMore
     items { 
@@ -539,10 +561,12 @@
       reporter { 
         userID 
         username 
+        email
       }
       assignee { 
         userID 
         username 
+        email
       }
       sprint { 
         sprintID 
@@ -558,7 +582,7 @@
 
 # Tasks from a sprint
 {
-  tasksFromSprintPage(projectName: "Project1", sprintNumber: "1", offset: 0, limit: 20) {
+  tasksFromSprintPage(projectName: "Study Buddies Web App", sprintNumber: "1", offset: 0, limit: 20) {
     totalCount
     hasMore
     items { 
@@ -569,10 +593,12 @@
       reporter { 
         userID 
         username 
+        email
       }
       assignee { 
         userID 
         username 
+        email
       }
       sprint { 
         sprintID 
@@ -582,12 +608,13 @@
         projectID 
         name 
       }
-    }  }
+    }  
+  }
 }
 
 # Tasks of an employee
 {
-  tasksOfEmployeePage(employeeUsername: "alice", offset: 0, limit: 20) {
+  tasksOfEmployeePage(employeeUsername: "alice", offset: 0, limit: 5) {
     totalCount
     hasMore
     items { 
@@ -598,10 +625,12 @@
       reporter { 
         userID 
         username 
+        email
       }
       assignee { 
         userID 
         username 
+        email
       }
       sprint { 
         sprintID 
@@ -628,10 +657,12 @@
       reporter { 
         userID 
         username 
+        email
       }
       assignee { 
         userID 
         username 
+        email
       }
       sprint { 
         sprintID 
@@ -647,7 +678,7 @@
 
 # Comments
 {
-  commentsPage(offset: 0, limit: 10) {
+  commentsPage(offset: 0, limit: 100) {
     totalCount
     hasMore
     items { 
@@ -657,10 +688,12 @@
       user { 
         userID 
         username 
+        email
       } 
       task { 
         taskID 
         name 
+        status
       } 
     }
   }
@@ -668,7 +701,7 @@
 
 # Comments by task
 {
-  commentsByTaskPage(taskID: 1, offset: 0, limit: 10) {
+  commentsByTaskPage(taskID: 10, offset: 0, limit: 10) {
     totalCount
     hasMore
     items { 
@@ -678,10 +711,12 @@
       user { 
         userID 
         username 
+        email
       } 
       task { 
         taskID 
         name 
+        status
       } 
     }  }
 }

@@ -1,9 +1,9 @@
-const { GraphQLInt, GraphQLString } = require('graphql');
+const { GraphQLInt, GraphQLString, GraphQLList } = require('graphql');
 const SprintType = require('../types/sprintType');
 const db = require('../../models');
 
 module.exports = {
-  type: SprintType,
+  type: new GraphQLList(SprintType),
   args: {
     projectName: { type: GraphQLString },
   },

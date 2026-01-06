@@ -24,7 +24,16 @@ module.exports = {
     includes.push({ model: db.Sprint, as: 'sprint', attributes: ['sprintID', 'number'] });
     includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
 
-    const where = { projectName, sprintNumber };
+    const project = await db.Project.findOne({ where: { name: projectName } });
+    if (!project) return { items: [], totalCount: 0, hasMore: false };
+
+    const sprintNum = parseInt(sprintNumber, 10);
+    if (Number.isNaN(sprintNum)) return { items: [], totalCount: 0, hasMore: false };
+
+    const sprint = await db.Sprint.findOne({ where: { projectID: project.projectID, number: sprintNum } });
+    if (!sprint) return { items: [], totalCount: 0, hasMore: false };
+
+    const where = { sprintID: sprint.sprintID };
     const totalCount = await db.Task.count({ where });
     const items = await db.Task.findAll({ where, include: includes, limit, offset });
     const hasMore = offset + items.length < totalCount;

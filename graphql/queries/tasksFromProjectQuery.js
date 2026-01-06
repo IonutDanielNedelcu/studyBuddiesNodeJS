@@ -10,12 +10,15 @@ module.exports = {
   resolve: async (_source, { projectName }) => {
     if (projectName == null) return [];
 
+    const project = await db.Project.findOne({ where: { name: projectName } });
+    if (!project) return [];
+
     const includes = [];
     includes.push({ model: db.User, as: 'reporter', attributes: ['userID', 'username', 'email'] });
     includes.push({ model: db.User, as: 'assignee', attributes: ['userID', 'username', 'email'] });
     includes.push({ model: db.Sprint, as: 'sprint', attributes: ['sprintID', 'number'] });
     includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
 
-    return db.Task.findAll({ where: { projectName }, include: includes });
+    return db.Task.findAll({ where: { projectID: project.projectID }, include: includes });
   },
 };

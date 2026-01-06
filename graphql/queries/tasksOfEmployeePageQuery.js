@@ -26,7 +26,7 @@ module.exports = {
     includes.push({ model: db.Sprint, as: 'sprint', attributes: ['sprintID', 'number'] });
     includes.push({ model: db.Project, as: 'project', attributes: ['projectID', 'name'] });
 
-    const where = { employeeUsername };
+    const where = { assigneeUserID: user.userID };
     const totalCount = await db.Task.count({ where });
     const items = await db.Task.findAll({ where, include: includes, limit, offset });
     const hasMore = offset + items.length < totalCount;

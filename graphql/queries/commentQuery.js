@@ -11,7 +11,7 @@ module.exports = {
   resolve: async (_source, { commentID }) => {
     const includes = [];
     if (db.User) includes.push({ model: db.User, as: 'user', attributes: ['userID', 'username', 'email'] });
-    if (db.Task) includes.push({ model: db.Task, as: 'task', attributes: ['taskID', 'name'] });
+    if (db.Task) includes.push({ model: db.Task, as: 'task', attributes: ['taskID', 'name', 'status'] });
     return db.Comment.findByPk(commentID, { include: includes });
   },
 };

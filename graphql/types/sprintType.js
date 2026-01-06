@@ -9,10 +9,10 @@ const SprintType = new GraphQLObjectType({
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
     projectID: { type: GraphQLInt },
-    // project: {
-    //   type: require('./projectType'),
-    //   resolve: (source, _args, _context) => source.getProject ? source.getProject() : null,
-    // },
+    project: {
+      type: require('./projectType'),
+      resolve: (source, _args, _context) => source.getProject ? source.getProject() : null,
+    },
   },
 });
 

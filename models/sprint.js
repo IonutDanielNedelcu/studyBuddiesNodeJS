@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Sprint extends Model {
         static associate(models) {
-            // Sprint.belongsTo(models.Project, { foreignKey: 'projectID', as: 'project' });
+            Sprint.belongsTo(models.Project, { foreignKey: 'projectID', as: 'project' });
         }
     }
 
@@ -33,10 +33,10 @@ module.exports = (sequelize, DataTypes) => {
         projectID: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            // references: {
-            //     model: 'Projects',
-            //     key: 'projectID',
-            // },
+            references: {
+                model: 'Projects',
+                key: 'projectID',
+            },
         },
     }, {
         sequelize,

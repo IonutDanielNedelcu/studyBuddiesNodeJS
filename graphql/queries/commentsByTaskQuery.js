@@ -12,6 +12,8 @@ module.exports = {
     if (taskID == null) return [];
     const includes = [];
     if (db.User) includes.push({ model: db.User, as: 'user', attributes: ['userID', 'username', 'email'] });
+    if (db.Task) includes.push({ model: db.Task, as: 'task', attributes: ['taskID', 'name', 'status'] });
+
     return db.Comment.findAll({ where: { taskID }, include: includes });
   },
 };
