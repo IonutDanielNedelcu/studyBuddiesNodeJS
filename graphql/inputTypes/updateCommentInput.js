@@ -6,6 +6,5 @@ module.exports = new GraphQLInputObjectType({
   fields: {
     commentID: { type: new GraphQLNonNull(GraphQLInt) },
     text: { type: GraphQLString },
-    date: { type: GraphQLString },
   },
 });

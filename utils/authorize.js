@@ -26,4 +26,5 @@ module.exports = {
   authorizeRoles,
   authorizeOrSelf,
   getRoleNames,
+  getViewer,
 };

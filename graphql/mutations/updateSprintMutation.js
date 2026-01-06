@@ -16,11 +16,17 @@ module.exports = {
     const sprint = await db.Sprint.findByPk(input.sprintID);
     if (!sprint) throw new Error('Sprint not found');
 
+    if (input.projectID !== undefined && input.projectID !== null) {
+      const project = await db.Project.findByPk(input.projectID);
+      if (!project) throw new Error('Project not found');
+    }
+
     await sprint.update({
       number: input.number !== undefined ? input.number : sprint.number,
       description: input.description !== undefined ? input.description : sprint.description,
       startDate: input.startDate !== undefined ? input.startDate : sprint.startDate,
       endDate: input.endDate !== undefined ? input.endDate : sprint.endDate,
+      projectID: input.projectID !== undefined ? input.projectID : sprint.projectID,
     });
 
     return sprint;

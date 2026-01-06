@@ -8,5 +8,6 @@ module.exports = new GraphQLInputObjectType({
     description: { type: GraphQLString },
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
+    projectID: { type: GraphQLInt },
   },
 });

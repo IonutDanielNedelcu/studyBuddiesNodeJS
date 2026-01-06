@@ -165,42 +165,50 @@ mutation {
 
 
 
-# Mutation for creating a new sprint
+# Mutation for creating a new sprint 
 mutation {
-  createSprint(input: { number: 1, description: "Sprint 1", startDate: "2026-06-01", endDate: "2026-06-15", projectID: 1 }) {
+  createSprint(input: {
+    number: 6,
+    description: "Sprint 6 - Feature work",
+    startDate: "2026-06-01",
+    endDate: "2026-06-30",
+    projectID: 1
+  }) {
     sprintID
     number
     description
     startDate
     endDate
-    project { 
-      projectID 
-      name 
+    project {
+      projectID
+      name
     }
   }
 }
 
+
 # Mutation for updating a sprint
 mutation {
-  updateSprint(input: { sprintID: 1, number: 6, description: "Updated" }) {
+  updateSprint(input: { sprintID: 22, description: "Updated after creation" }) {
     sprintID
     number
     description
     startDate
     endDate
+    projectID
   }
 }
 
 # Mutation for deleting a sprint
 mutation {
-  deleteSprint(sprintID: 1)
+  deleteSprint(sprintID: 22)
 }
 
 
 
 # Mutation for creating a new task
 mutation {
-  createTask(input: { name: "Implement login", description: "Add JWT login flow", status: "Open", assigneeUsername: "alice", projectName: "Project1", sprintNumber: 1 }) {
+  createTask(input: { name: "Verify mutation for creating a task", description: "Verify mutation for creating a task", status: "Open", assigneeUsername: "alice", projectName: "Study Buddies Web App", sprintNumber: 5 }) {
     taskID
     name
     description
@@ -208,10 +216,12 @@ mutation {
     assignee { 
       userID 
       username 
+      email
     }
     reporter { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -226,17 +236,19 @@ mutation {
 
 # Mutation for updating a task
 mutation {
-  updateTask(input: { taskID: 1, name: "Fix login bug", status: "InProgress", assigneeUsername: "alice", projectName: "Project1", sprintNumber: 1 }) {
+  updateTask(input: { taskID: 160, status: "In Progress"}) {
     taskID
     name
     status
     assignee { 
       userID 
       username 
+      email
     }
     reporter { 
       userID 
       username 
+      email
     }
     sprint { 
       sprintID 
@@ -251,40 +263,50 @@ mutation {
 
 # Mutation for deleting a task
 mutation {
-  deleteTask(taskID: 1)
+  deleteTask(taskID: 160)
 }
 
 
 
 # Mutation for creating a new comment
 mutation {
-  createComment(input: { text: "Uncomment the test after fixing", taskID: 1 }) {
+  createComment(input: { text: "Good job with mutations", taskID: 1 }) {
     commentID
     text
     date
     user { 
       userID 
       username 
+      email
     }
     task { 
       taskID 
       name 
+      status
     }
   }
 }
 
 # Mutation for updating a comment
 mutation {
-  updateComment(input: { commentID: 1, text: "Updated: Uncomment the test after fixing" }) {
+  updateComment(input: { commentID: 598, text: "Updated: Good job" }) {
     commentID
     text
     date
-    user { userID username }
-    task { taskID name }
+    user { 
+      userID 
+      username 
+      email
+    }
+    task { 
+      taskID 
+      name 
+      status
+    }
   }
 }
 
 # Mutation for deleting a comment
 mutation {
-  deleteComment(commentID: 1)
+  deleteComment(commentID: 598)
 }
