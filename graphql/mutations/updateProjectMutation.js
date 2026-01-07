@@ -1,17 +1,16 @@
-const { GraphQLNonNull, GraphQLInt, GraphQLString } = require('graphql');
+const { GraphQLNonNull } = require('graphql');
 const ProjectType = require('../types/projectType');
+const UpdateProjectInputType = require('../inputTypes/updateProjectInputType');
 const db = require('../../models');
 const { authorizeRoles } = require('../../utils/authorize');
 
 module.exports = {
   type: ProjectType,
   args: {
-    projectID: { type: new GraphQLNonNull(GraphQLInt) },
-    name: { type: GraphQLString },
-    description: { type: GraphQLString },
-    repositoryID: { type: GraphQLInt },
+    input: { type: new GraphQLNonNull(UpdateProjectInputType) },
   },
-  resolve: async (_source, args, context) => {
+  resolve: async (_source, { input }, context) => {
+    const args = input;
     authorizeRoles(context, ['Admin', 'Manager']);
 
     const project = await db.Project.findByPk(args.projectID);
