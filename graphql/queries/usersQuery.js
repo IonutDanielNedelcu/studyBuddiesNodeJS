@@ -8,6 +8,9 @@ module.exports = {
   resolve: async (_source, _args, context) => {
     authorizeRoles(context, ['Admin', 'Manager']);
     const users = await db.User.findAll({ include: [{ model: db.Role, as: 'roles' }, { model: db.Team, as: 'team' }, { model: db.Position, as: 'position' }] });
+    if (!users || users.length === 0) {
+      throw new Error('No users found');
+    }
     return users;
   },
 };

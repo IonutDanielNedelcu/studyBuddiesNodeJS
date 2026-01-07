@@ -9,10 +9,14 @@ module.exports = {
     username: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_source, { username }, context) => {
-    authorizeRoles(context, ['Admin']);
+    authorizeRoles(context, ['Admin', 'Manager']);
 
     const user = await db.User.findOne({ where: { username } });
     if (!user) throw new Error('User not found');
+
+    if (!user.positionID) {
+      throw new Error('User has no position to remove');
+    }
 
     await user.update({ positionID: null });
 

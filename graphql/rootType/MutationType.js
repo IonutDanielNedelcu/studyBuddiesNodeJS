@@ -18,6 +18,16 @@ const updateProject = require('../mutations/updateProjectMutation');
 const deleteProject = require('../mutations/deleteProjectMutation');
 const createTeam = require('../mutations/createTeamMutation');
 const deleteTeam = require('../mutations/deleteTeamMutation');
+const createSprint = require('../mutations/createSprintMutation');
+const updateSprint = require('../mutations/updateSprintMutation');
+const deleteSprint = require('../mutations/deleteSprintMutation');
+const createTask = require('../mutations/createTaskMutation');
+const updateTask = require('../mutations/updateTaskMutation');
+const deleteTask = require('../mutations/deleteTaskMutation');
+const createComment = require('../mutations/createCommentMutation');
+const updateComment = require('../mutations/updateCommentMutation');
+const deleteComment = require('../mutations/deleteCommentMutation');
+
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
@@ -41,6 +51,15 @@ const MutationType = new GraphQLObjectType({
     deleteProject,
     createTeam,
     deleteTeam,
+    createSprint,
+    updateSprint,
+    deleteSprint,
+    createTask,
+    updateTask,
+    deleteTask,
+    createComment,
+    updateComment,
+    deleteComment,
   },
 });
 

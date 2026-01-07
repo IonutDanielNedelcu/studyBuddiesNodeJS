@@ -7,6 +7,10 @@ module.exports = {
   type: new GraphQLList(PositionType),
   resolve: async (_source, _args, context) => {
     authorizeRoles(context, ['Admin', 'Manager']);
-    return db.Position.findAll();
+    const positions = await db.Position.findAll();
+    if (!positions || positions.length === 0) {
+      throw new Error('No positions found');
+    }
+    return positions;
   },
 };

@@ -9,7 +9,9 @@ module.exports = {
     name: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_source, { name }, context) => {
-    authorizeRoles(context, ['Admin', 'Manager']);
-    return db.Team.findOne({ where: { name } });
+    if (!context || !context.user) throw new Error('Not authenticated');
+    const team = await db.Team.findOne({ where: { name } });
+    if (!team) throw new Error(`Team not found with name '${name}'`);
+    return team;
   },
 };

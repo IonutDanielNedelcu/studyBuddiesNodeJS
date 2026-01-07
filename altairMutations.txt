@@ -13,6 +13,7 @@ mutation {
 }
 
 
+
 # Mutation for login
 mutation Login($input: LoginInput!) {
   login(input: $input) {
@@ -33,6 +34,7 @@ mutation { logout }
 mutation {
   removeUser(username: "bob")
 }
+
 
 
 # Mutation for adding a position to someone
@@ -158,4 +160,152 @@ mutation {
 # Mutation for deleting a team
 mutation {
   deleteTeam(teamID: 1)
+}
+
+
+
+# Mutation for creating a new sprint 
+mutation {
+  createSprint(input: {
+    number: 6,
+    description: "Sprint 6 - Feature work",
+    startDate: "2026-06-01",
+    endDate: "2026-06-30",
+    projectID: 1
+  }) {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+    project {
+      projectID
+      name
+    }
+  }
+}
+
+
+# Mutation for updating a sprint
+mutation {
+  updateSprint(input: { sprintID: 22, description: "Updated after creation" }) {
+    sprintID
+    number
+    description
+    startDate
+    endDate
+    projectID
+  }
+}
+
+# Mutation for deleting a sprint
+mutation {
+  deleteSprint(sprintID: 22)
+}
+
+
+
+# Mutation for creating a new task
+mutation {
+  createTask(input: { name: "Verify mutation for creating a task", description: "Verify mutation for creating a task", status: "Open", assigneeUsername: "alice", projectName: "Study Buddies Web App", sprintNumber: 5 }) {
+    taskID
+    name
+    description
+    status
+    assignee { 
+      userID 
+      username 
+      email
+    }
+    reporter { 
+      userID 
+      username 
+      email
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Mutation for updating a task
+mutation {
+  updateTask(input: { taskID: 160, status: "In Progress"}) {
+    taskID
+    name
+    status
+    assignee { 
+      userID 
+      username 
+      email
+    }
+    reporter { 
+      userID 
+      username 
+      email
+    }
+    sprint { 
+      sprintID 
+      number 
+    }
+    project { 
+      projectID 
+      name 
+    }
+  }
+}
+
+# Mutation for deleting a task
+mutation {
+  deleteTask(taskID: 160)
+}
+
+
+
+# Mutation for creating a new comment
+mutation {
+  createComment(input: { text: "Good job with mutations", taskID: 1 }) {
+    commentID
+    text
+    date
+    user { 
+      userID 
+      username 
+      email
+    }
+    task { 
+      taskID 
+      name 
+      status
+    }
+  }
+}
+
+# Mutation for updating a comment
+mutation {
+  updateComment(input: { commentID: 598, text: "Updated: Good job" }) {
+    commentID
+    text
+    date
+    user { 
+      userID 
+      username 
+      email
+    }
+    task { 
+      taskID 
+      name 
+      status
+    }
+  }
+}
+
+# Mutation for deleting a comment
+mutation {
+  deleteComment(commentID: 598)
 }

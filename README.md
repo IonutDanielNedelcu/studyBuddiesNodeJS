@@ -51,3 +51,50 @@ npx sequelize-cli db:migrate:undo:all
 npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 ```
+
+
+
+## Functionalities
+
+StudyBuddies platform uses RBAC (Role-Based Access Control), with 3 designed application roles: Admins, Managers, and Employees. Each of the roles has specific CRUD (Create, Read, Update, Delete) operations available, listed below.
+
+An admin is created with a seeder script. Upon registration, a user gets the Employee role.
+
+# Admins
+Seeing data:
+    - Users: all users, a specific user (identified by username), own user
+    - Roles: all roles, a specific role (identified by name)
+    - Positions: all positions, positions with a specific name, positions with a specific seniority
+    - Teams: all teams, a specific team (identified by name)
+
+Managing data:
+    - Users: remove a specific user (identified by username)
+    - Roles: add a role to a user, remove a role from a user
+    - Positions: create a new positions, add a position to a user, remove a position from a user
+    - Teams: 
+
+# Managers
+Seeing data:
+    - Users: all users, a specific user (identified by username), own user
+    - Roles: none
+    - Positions: all positions, positions with a specific name, positions with a specific seniority
+    - Teams: all teams, a specific team (identified by name)
+
+Managing data:
+    - Users: none
+    - Roles: none
+    - Positions: add a position to a user, remove a position from a user
+    - Teams: 
+
+# Users
+Seeing data:
+    - Users: a specific user (identified by username), own user
+    - Roles: none
+    - Positions: none
+    - Teams: a specific team (identified by name)
+
+Managing data:
+    - Users: none
+    - Roles: none
+    - Positions: none
+    - Teams: 

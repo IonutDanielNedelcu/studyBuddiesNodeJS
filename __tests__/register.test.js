@@ -8,7 +8,7 @@ test('register without positionID', async () => {
   const input = {
     email: `jest_user_${Date.now()}@example.com`,
     password: 'secret123',
-    username: null,
+    username: `user_${Date.now()}`,
     firstName: 'Jest',
     lastName: 'User',
     // positionID intentionally omitted

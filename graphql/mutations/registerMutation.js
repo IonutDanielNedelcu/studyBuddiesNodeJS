@@ -13,6 +13,13 @@ module.exports = {
     input: { type: new GraphQLNonNull(RegisterInputType) },
   },
   async resolve(_, { input }) {
+    // validate required fields
+    if (!input.email) throw new Error('Email is required');
+    if (!input.password) throw new Error('Password is required');
+    if (!input.username) throw new Error('Username is required');
+    if (!input.firstName) throw new Error('First name is required');
+    if (!input.lastName) throw new Error('Last name is required');
+
     const existingEmail = await db.User.findOne({ where: { email: input.email } });
     if (existingEmail) {
       throw new Error('Email already in use');
@@ -33,8 +40,7 @@ module.exports = {
       username: input.username || null,
       firstName: input.firstName || null,
       lastName: input.lastName || null,
-      positionID: input.positionID || null,
-      teamID: input.teamID || null,
+      // position and team are not settable during registration
     });
 
     // assign Employee role if it exists
