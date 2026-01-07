@@ -6,13 +6,13 @@ const sprintsFromProjectQuery = require('../graphql/queries/sprintsFromProjectQu
 const tasksFromSprintQuery = require('../graphql/queries/tasksFromSprintQuery');
 const updateTask = require('../graphql/mutations/updateTaskMutation');
 const createComment = require('../graphql/mutations/createCommentMutation');
-const { createEmployeeUser } = require('./helpers');
+const { createEmployeeUser, createAdminUser } = require('./helpers');
 const createProjectMutation = require('../graphql/mutations/createProjectMutation');
 const createTaskMutation = require('../graphql/mutations/createTaskMutation');
+const deleteCommentMutation = require('../graphql/mutations/deleteCommentMutation');
+const deleteTaskMutation = require('../graphql/mutations/deleteTaskMutation');
 
 jest.setTimeout(30000);
-
-const adminContext= { user: { userID: 0, roles: [{ name: 'Admin' }] } };
 
 // Flow: (employee) login - vad proiect - vad sprint - vad task - modific task - adaug comment
 // Steps:
@@ -28,6 +28,8 @@ describe('Full flow - employee views and acts', () => {
   let comment;
 
   beforeAll(async () => {
+    const adminContext= await createAdminUser();
+
     // Create employee 
     const employee = await createEmployeeUser();
     const context = { user: { userID: employee.userID } };
@@ -50,13 +52,16 @@ describe('Full flow - employee views and acts', () => {
   });
 
   afterAll(async () => {
-    // cleanup in sensible order
-    try { if (comment && comment.commentID) await db.Comment.destroy({ where: { commentID: comment.commentID } }); } catch (e) {}
-    try { if (task && task.taskID) await db.Task.destroy({ where: { taskID: task.taskID } }); } catch (e) {}
-    try { if (sprint && sprint.sprintID) await db.Sprint.destroy({ where: { sprintID: sprint.sprintID } }); } catch (e) {}
-    try { if (project && project.projectID) await db.Project.destroy({ where: { projectID: project.projectID } }); } catch (e) {}
-    try { if (reporter && reporter.userID) await db.User.destroy({ where: { userID: reporter.userID } }); } catch (e) {}
-    try { if (employeeAuth && employeeAuth.user && employeeAuth.user.userID) await db.User.destroy({ where: { userID: employeeAuth.user.userID } }); } catch (e) {}
+    if (comment && comment.commentID) await deleteCommentMutation.resolve(null, { input: { commentID: comment.commentID } });
+    if (task1 && task1.taskID) await deleteTaskMutation.resolve(null, { input: { taskID: task1.taskID } });
+    if (task2 && task2.taskID) await deleteTaskMutation.resolve(null, { input: { taskID: task2.taskID } });
+    if (task3 && task3.taskID) await deleteTaskMutation.resolve(null, { input: { taskID: task3.taskID } });
+    if (sprint1 && sprint1.sprintID) await deleteSprint.resolve(null, { input: { sprintID: sprint1.sprintID } }, adminContext);
+    if (sprint2 && sprint2.sprintID) await deleteSprint.resolve(null, { input: { sprintID: sprint2.sprintID } }, adminContext);
+    if (sprint3 && sprint3.sprintID) await deleteSprint.resolve(null, { input: { sprintID: sprint3.sprintID } }, adminContext);
+    if (project && project.projectID) await deleteProjectMutation.resolve(null, { input: { projectID: project.projectID } }, adminContext);
+    if (repo && repo.repositoryID) await deleteRepositoryMutation.resolve(null, { input: { repositoryID: repo.repositoryID } }, adminContext);
+    if (employee && employee.userID) await deleteUserMutation.resolve(null, { input: { userID: employee.userID } }, adminContext);
   });
 
   test('Employee can login', async () => {
