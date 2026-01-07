@@ -1,14 +1,15 @@
-const { GraphQLNonNull, GraphQLInt, GraphQLBoolean } = require('graphql');
+const { GraphQLNonNull, GraphQLBoolean } = require('graphql');
+const RemoveUserFromProjectInputType = require('../inputTypes/removeUserFromProjectInputType');
 const db = require('../../models');
 const { authorizeRoles } = require('../../utils/authorize');
 
 module.exports = {
   type: GraphQLBoolean,
   args: {
-    projectID: { type: new GraphQLNonNull(GraphQLInt) },
-    userID: { type: new GraphQLNonNull(GraphQLInt) },
+    input: { type: new GraphQLNonNull(RemoveUserFromProjectInputType) },
   },
-  resolve: async (_source, { projectID, userID }, context) => {
+  resolve: async (_source, { input }, context) => {
+    const { projectID, userID } = input;
     authorizeRoles(context, ['Admin', 'Manager']);
 
     const deletedCount = await db.UserProject.destroy({
