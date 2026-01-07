@@ -60,11 +60,11 @@ test('teamByName query finds team (happy path)', async () => {
   expect(result.name).toBe(teamName);
 });
 
-test('teamByName query returns null for non-existent team (sad path)', async () => {
+test('teamByName query returns error for non-existent team (sad path)', async () => {
   const user = await createAdminUser();
   const context = { user };
 
-  const result = await teamByNameQuery.resolve(null, { name: 'NonExistentTeam' }, context);
-
-  expect(result).toBeNull();
+  await expect(
+    teamByNameQuery.resolve(null, { name: 'NonExistentTeam' }, context)
+  ).rejects.toThrow("Team not found with name 'NonExistentTeam'");
 });

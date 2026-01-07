@@ -8,7 +8,9 @@ module.exports = {
     projectName: { type: GraphQLString },
     sprintNumber: { type: GraphQLInt },
   },
-  resolve: async (_source, { projectName, sprintNumber }) => {
+  resolve: async (_source, args, context) => {
+    const { projectName, sprintNumber } = args;
+    if (!context || !context.user) throw new Error('Not authenticated');
     const where = {};
     if (typeof sprintNumber !== 'undefined') where.number = sprintNumber;
     if (typeof projectName !== 'undefined' && projectName !== null) {

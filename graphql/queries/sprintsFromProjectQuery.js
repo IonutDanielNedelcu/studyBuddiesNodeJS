@@ -7,7 +7,9 @@ module.exports = {
   args: {
     projectName: { type: GraphQLString },
   },
-  resolve: async (_source, { projectName }) => {
+  resolve: async (_source, args, context) => {
+    const { projectName } = args;
+    if (!context || !context.user) throw new Error('Not authenticated');
     if (projectName == null) return [];
     const project = await db.Project.findOne({ where: { name: projectName } });
     if (!project) return [];

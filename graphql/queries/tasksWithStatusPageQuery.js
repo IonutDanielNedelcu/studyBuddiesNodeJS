@@ -12,7 +12,11 @@ module.exports = {
     offset: { type: GraphQLInt },
     limit: { type: GraphQLInt },
   },
-  resolve: async (_source, { status, offset = 0, limit = 20 }) => {
+  resolve: async (_source, args, context) => {
+    const { status, offset: _offset = 0, limit: _limit = 20 } = args;
+    let offset = _offset;
+    let limit = _limit;
+    if (!context || !context.user) throw new Error('Not authenticated');
     if (offset < 0) offset = 0;
     if (limit <= 0) limit = 20;
     if (limit > MAX_LIMIT) limit = MAX_LIMIT;

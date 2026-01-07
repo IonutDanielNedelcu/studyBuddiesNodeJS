@@ -9,7 +9,8 @@ module.exports = {
   args: {
     input: { type: new GraphQLNonNull(CreateProjectInputType) },
   },
-  resolve: async (_source, { input }, context) => {
+  resolve: async (_source, args, context) => {
+    const input = args.input || args;
     const { name, description, repositoryID } = input;
     authorizeRoles(context, ['Admin', 'Manager']);
 

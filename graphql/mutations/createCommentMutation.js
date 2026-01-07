@@ -11,6 +11,7 @@ module.exports = {
     input: { type: new GraphQLNonNull(CreateCommentInput) },
   },
   resolve: async (_source, { input }, context) => {
+    if (!context || !context.user) throw new Error('Not authenticated');
     // Determine creator from context
     const creator = getViewer(context);
     if (!creator || !creator.userID) throw new Error('Not authenticated');

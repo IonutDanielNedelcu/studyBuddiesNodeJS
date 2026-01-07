@@ -7,8 +7,8 @@ const { getViewer } = require('../../utils/authorize');
 module.exports = {
   type: new GraphQLList(TaskType),
   resolve: async (_source, _args, context) => {
+    if (!context || !context.user) throw new Error('Not authenticated');
     const viewer = getViewer(context);
-    if (!viewer || !viewer.userID) throw new Error('Not authenticated');
 
     const includes = [];
     includes.push({ model: db.User, as: 'reporter', attributes: ['userID', 'username', 'email'] });

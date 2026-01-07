@@ -35,7 +35,7 @@ describe('Full flow: admin -> repo -> project -> add users -> sprint -> tasks', 
   test('complete happy path', async () => {
     // 1) create repository as admin
     const repoName = `jest_repo_${Date.now()}`;
-    repo = await createRepository.resolve(null, { name: repoName, url: 'https://example.com' }, adminContext);
+    repo = await createRepository.resolve(null, { name: repoName, url: 'https://studybuddies.com' }, adminContext);
     expect(repo).toBeDefined();
     expect(repo.name).toBe(repoName);
 
@@ -47,8 +47,8 @@ describe('Full flow: admin -> repo -> project -> add users -> sprint -> tasks', 
 
     // 3) create two users via register mutation
     const password = 'P@ssw0rd!';
-    const u1Input = { email: `u1_${Date.now()}@example.com`, password, username: `u1_${Date.now()}`, firstName: 'User', lastName: 'One' };
-    const u2Input = { email: `u2_${Date.now()}@example.com`, password, username: `u2_${Date.now()}`, firstName: 'User', lastName: 'Two' };
+    const u1Input = { email: `u1_${Date.now()}@studybuddies.com`, password, username: `u1_${Date.now()}`, firstName: 'User', lastName: 'One' };
+    const u2Input = { email: `u2_${Date.now()}@studybuddies.com`, password, username: `u2_${Date.now()}`, firstName: 'User', lastName: 'Two' };
 
     const created1 = await registerMutation.resolve(null, { input: u1Input });
     const created2 = await registerMutation.resolve(null, { input: u2Input });

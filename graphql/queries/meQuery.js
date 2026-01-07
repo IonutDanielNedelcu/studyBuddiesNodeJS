@@ -3,7 +3,7 @@ const UserType = require('../types/userType');
 module.exports = {
   type: UserType,
   resolve: async (_source, _args, context) => {
-    if (!context || !context.user) return null;
+    if (!context || !context.user) throw new Error('Not authenticated');
 
     // If user already has detailed relations, return it.
     const existing = context.user;

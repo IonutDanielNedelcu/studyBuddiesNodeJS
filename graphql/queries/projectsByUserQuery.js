@@ -9,7 +9,7 @@ module.exports = {
     username: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_source, { username }, context) => {
-    authorizeRoles(context, ['Admin', 'Manager', 'Employee']);
+    if (!context || !context.user) throw new Error('Not authenticated');
 
     return await db.Project.findAll({
       include: [
