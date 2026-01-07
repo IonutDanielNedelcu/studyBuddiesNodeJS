@@ -7,7 +7,8 @@ module.exports = {
   args: {
     employeeUsername: { type: new GraphQLNonNull(GraphQLString) },
   },
-  resolve: async (_source, { employeeUsername }) => {
+  resolve: async (_source, args, context) => {
+    const { employeeUsername } = args;
     if (!context || !context.user) throw new Error('Not authenticated');
     if (employeeUsername == null) return [];
 

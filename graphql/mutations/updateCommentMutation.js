@@ -3,6 +3,7 @@ const { GraphQLNonNull } = require('graphql');
 const CommentType = require('../types/commentType');
 const UpdateCommentInput = require('../inputTypes/updateCommentInput');
 const db = require('../../models');
+const { authorizeOrSelf } = require('../../utils/authorize');
 
 module.exports = {
   type: CommentType,
