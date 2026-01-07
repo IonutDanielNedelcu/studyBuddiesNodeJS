@@ -5,6 +5,13 @@ const db = require('../models');
 
 beforeAll(async () => {
 	await db.sequelize.sync({ force: true });
+	
+	// seed roles for tests
+	await db.Role.bulkCreate([
+		{ name: 'Admin' },
+		{ name: 'Manager' },
+		{ name: 'Employee' }
+	]);
 });
 
 afterAll(async () => {
