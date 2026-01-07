@@ -11,8 +11,8 @@ module.exports = {
   },
   resolve: async (_source, { input }, context) => {
     // Determine creator from context
+    if (!context || !context.user) throw new Error('Not authenticated');
     const creator = getViewer(context);
-    if (!creator || !creator.userID) throw new Error('Not authenticated');
     const reporterId = creator.userID;
 
     // Basic validation

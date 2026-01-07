@@ -8,6 +8,7 @@ module.exports = {
     employeeUsername: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_source, { employeeUsername }) => {
+    if (!context || !context.user) throw new Error('Not authenticated');
     if (employeeUsername == null) return [];
 
     const user = await db.User.findOne({ where: { username: employeeUsername } });

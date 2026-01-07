@@ -13,6 +13,7 @@ module.exports = {
     limit: { type: GraphQLInt },
   },
   resolve: async (_source, { taskID, offset = 0, limit = 20 }) => {
+    if (!context || !context.user) throw new Error('Not authenticated');
     if (taskID == null) return { items: [], totalCount: 0, hasMore: false };
     if (offset < 0) offset = 0;
     if (limit <= 0) limit = 20;

@@ -6,7 +6,7 @@ const { authorizeRoles } = require('../../utils/authorize');
 module.exports = {
   type: new GraphQLList(ProjectType),
   resolve: async (_source, _args, context) => {
-    authorizeRoles(context, ['Admin', 'Manager', 'Employee']);
+    if (!context || !context.user) throw new Error('Not authenticated');
     
     return db.Project.findAll({
         include: [{ model: db.Repository, as: 'repository' }]

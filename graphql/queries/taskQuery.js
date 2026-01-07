@@ -8,6 +8,7 @@ module.exports = {
     taskID: { type: GraphQLInt },
   },
   resolve: async (_source, { taskID }) => {
+    if (!context || !context.user) throw new Error('Not authenticated');
     const includes = [];
     includes.push({ model: db.User, as: 'reporter', attributes: ['userID', 'username', 'email'] });
     includes.push({ model: db.User, as: 'assignee', attributes: ['userID', 'username', 'email'] });

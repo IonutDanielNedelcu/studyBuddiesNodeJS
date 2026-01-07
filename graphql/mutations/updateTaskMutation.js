@@ -10,6 +10,7 @@ module.exports = {
   },
   resolve: async (_source, { input }, context) => {
     try {
+      if (!context || !context.user) throw new Error('Not authenticated');
       const task = await db.Task.findByPk(input.taskID);
       if (!task) throw new Error('Task not found');
 

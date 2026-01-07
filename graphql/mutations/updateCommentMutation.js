@@ -13,6 +13,7 @@ module.exports = {
     try {
       const comment = await db.Comment.findByPk(input.commentID);
       if (!comment) throw new Error('Comment not found');
+      authorizeOrSelf(context, comment.userID, ['Admin']);
 
       const update = {};
       if (input.text !== undefined) update.text = input.text;

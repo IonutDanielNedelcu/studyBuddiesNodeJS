@@ -14,6 +14,7 @@ module.exports = {
     limit: { type: GraphQLInt },
   },
   resolve: async (_source, { projectName, sprintNumber, offset = 0, limit = 20 }) => {
+    if (!context || !context.user) throw new Error('Not authenticated');
     if (offset < 0) offset = 0;
     if (limit <= 0) limit = 20;
     if (limit > MAX_LIMIT) limit = MAX_LIMIT;
