@@ -13,8 +13,8 @@ test('teams query returns all teams (happy path)', async () => {
   const user = await createAdminUser();
   const context = { user };
 
-  await createTeamMutation.resolve(null, { name: `team1-${Date.now()}` }, context);
-  await createTeamMutation.resolve(null, { name: `team2-${Date.now()}` }, context);
+  await createTeamMutation.resolve(null, { input: { name: `team1-${Date.now()}` } }, context);
+  await createTeamMutation.resolve(null, { input: { name: `team2-${Date.now()}` } }, context);
 
   const result = await teamsQuery.resolve(null, {}, context);
 
@@ -52,7 +52,7 @@ test('teamByName query finds team (happy path)', async () => {
   const context = { user };
 
   const teamName = `unique-team-${Date.now()}`;
-  await createTeamMutation.resolve(null, { name: teamName }, context);
+  await createTeamMutation.resolve(null, { input: { name: teamName } }, context);
 
   const result = await teamByNameQuery.resolve(null, { name: teamName }, context);
 

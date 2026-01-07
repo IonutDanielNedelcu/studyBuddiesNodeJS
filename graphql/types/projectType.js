@@ -9,7 +9,6 @@ const ProjectType = new GraphQLObjectType({
     projectID: { type: GraphQLInt },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
-    repositoryID: { type: GraphQLInt },
     
     repository: {
       type: RepositoryType,

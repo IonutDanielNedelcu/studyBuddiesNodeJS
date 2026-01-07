@@ -16,8 +16,8 @@ test('projects query returns all projects (happy path)', async () => {
   const admin = await createAdminUser();
   const adminContext = { user: admin };
 
-  await createProjectMutation.resolve(null, { name: `project1-${Date.now()}`, description: 'Test 1' }, adminContext);
-  await createProjectMutation.resolve(null, { name: `project2-${Date.now()}`, description: 'Test 2' }, adminContext);
+  await createProjectMutation.resolve(null, { input: { name: `project1-${Date.now()}`, description: 'Test 1' } }, adminContext);
+  await createProjectMutation.resolve(null, { input: { name: `project2-${Date.now()}`, description: 'Test 2' } }, adminContext);
 
   const result = await projectsQuery.resolve(null, {}, context);
 
@@ -39,8 +39,8 @@ test('projectsByUser query returns user projects (happy path)', async () => {
   const user = await createEmployeeUser();
   const userContext = { user };
 
-  const project = await createProjectMutation.resolve(null, { name: `user-project-${Date.now()}`, description: 'Test' }, adminContext);
-  await addUserToProjectMutation.resolve(null, { projectID: project.projectID, userID: user.userID }, adminContext);
+  const project = await createProjectMutation.resolve(null, { input: { name: `user-project-${Date.now()}`, description: 'Test' } }, adminContext);
+  await addUserToProjectMutation.resolve(null, { input: { projectID: project.projectID, userID: user.userID } }, adminContext);
 
   const result = await projectsByUserQuery.resolve(null, { username: user.username }, userContext);
 

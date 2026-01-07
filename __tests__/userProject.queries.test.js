@@ -16,11 +16,11 @@ test('projectsByUser returns projects assigned to user (happy path)', async () =
   const employee = await createEmployeeUser();
   const employeeContext = { user: employee };
 
-  const project1 = await createProjectMutation.resolve(null, { name: `project1-${Date.now()}`, description: 'Test 1' }, adminContext);
-  const project2 = await createProjectMutation.resolve(null, { name: `project2-${Date.now()}`, description: 'Test 2' }, adminContext);
+  const project1 = await createProjectMutation.resolve(null, { input: { name: `project1-${Date.now()}`, description: 'Test 1' } }, adminContext);
+  const project2 = await createProjectMutation.resolve(null, { input: { name: `project2-${Date.now()}`, description: 'Test 2' } }, adminContext);
 
-  await addUserToProjectMutation.resolve(null, { projectID: project1.projectID, userID: employee.userID }, adminContext);
-  await addUserToProjectMutation.resolve(null, { projectID: project2.projectID, userID: employee.userID }, adminContext);
+  await addUserToProjectMutation.resolve(null, { input: { projectID: project1.projectID, userID: employee.userID } }, adminContext);
+  await addUserToProjectMutation.resolve(null, { input: { projectID: project2.projectID, userID: employee.userID } }, adminContext);
 
   const result = await projectsByUserQuery.resolve(null, { username: employee.username }, employeeContext);
 

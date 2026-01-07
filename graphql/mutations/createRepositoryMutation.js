@@ -1,15 +1,16 @@
-const { GraphQLNonNull, GraphQLString } = require('graphql');
+const { GraphQLNonNull } = require('graphql');
 const RepositoryType = require('../types/repositoryType');
+const CreateRepositoryInputType = require('../inputTypes/createRepositoryInputType');
 const db = require('../../models');
 const { authorizeRoles } = require('../../utils/authorize');
 
 module.exports = {
   type: RepositoryType,
   args: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    url: { type: GraphQLString },
+    input: { type: new GraphQLNonNull(CreateRepositoryInputType) },
   },
-  resolve: async (_source, { name, url }, context) => {
+  resolve: async (_source, { input }, context) => {
+    const { name, url } = input;
     authorizeRoles(context, ['Admin', 'Manager']);
 
     const existing = await db.Repository.findOne({ where: { name } });

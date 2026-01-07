@@ -27,9 +27,9 @@ test('addUserToProject assigns user to project (happy path)', async () => {
   const user = await createRegularUser();
   const context = { user: admin };
 
-  const project = await createProjectMutation.resolve(null, { name: `project-${Date.now()}`, description: 'Test' }, context);
+  const project = await createProjectMutation.resolve(null, { input: { name: `project-${Date.now()}`, description: 'Test' } }, context);
 
-  const result = await addUserToProjectMutation.resolve(null, { projectID: project.projectID, userID: user.userID }, context);
+  const result = await addUserToProjectMutation.resolve(null, { input: { projectID: project.projectID, userID: user.userID } }, context);
 
   expect(result).toBe(true);
 
@@ -44,12 +44,12 @@ test('addUserToProject fails with duplicate assignment (sad path)', async () => 
   const user = await createRegularUser();
   const context = { user: admin };
 
-  const project = await createProjectMutation.resolve(null, { name: `project-${Date.now()}`, description: 'Test' }, context);
+  const project = await createProjectMutation.resolve(null, { input: { name: `project-${Date.now()}`, description: 'Test' } }, context);
 
-  await addUserToProjectMutation.resolve(null, { projectID: project.projectID, userID: user.userID }, context);
+  await addUserToProjectMutation.resolve(null, { input: { projectID: project.projectID, userID: user.userID } }, context);
 
   await expect(
-    addUserToProjectMutation.resolve(null, { projectID: project.projectID, userID: user.userID }, context)
+    addUserToProjectMutation.resolve(null, { input: { projectID: project.projectID, userID: user.userID } }, context)
   ).rejects.toThrow('User is already assigned to this project');
 });
 
@@ -58,11 +58,11 @@ test('removeUserFromProject unassigns user (happy path)', async () => {
   const user = await createRegularUser();
   const context = { user: admin };
 
-  const project = await createProjectMutation.resolve(null, { name: `project-${Date.now()}`, description: 'Test' }, context);
+  const project = await createProjectMutation.resolve(null, { input: { name: `project-${Date.now()}`, description: 'Test' } }, context);
 
-  await addUserToProjectMutation.resolve(null, { projectID: project.projectID, userID: user.userID }, context);
+  await addUserToProjectMutation.resolve(null, { input: { projectID: project.projectID, userID: user.userID } }, context);
 
-  const result = await removeUserFromProjectMutation.resolve(null, { projectID: project.projectID, userID: user.userID }, context);
+  const result = await removeUserFromProjectMutation.resolve(null, { input: { projectID: project.projectID, userID: user.userID } }, context);
 
   expect(result).toBe(true);
 
@@ -77,15 +77,15 @@ test('removeUserFromProject fails when user not assigned (sad path)', async () =
   const user = await createRegularUser();
   const context = { user: admin };
 
-  const project = await createProjectMutation.resolve(null, { name: `project-${Date.now()}`, description: 'Test' }, context);
+  const project = await createProjectMutation.resolve(null, { input: { name: `project-${Date.now()}`, description: 'Test' } }, context);
 
   await expect(
-    removeUserFromProjectMutation.resolve(null, { projectID: project.projectID, userID: user.userID }, context)
+    removeUserFromProjectMutation.resolve(null, { input: { projectID: project.projectID, userID: user.userID } }, context)
   ).rejects.toThrow('User was not assigned to this project or project/user not found');
 });
 
 test('addUserToProject requires authentication (sad path)', async () => {
   await expect(
-    addUserToProjectMutation.resolve(null, { projectID: 1, userID: 1 }, {})
+    addUserToProjectMutation.resolve(null, { input: { projectID: 1, userID: 1 } }, {})
   ).rejects.toThrow('Not authenticated');
 });

@@ -14,7 +14,7 @@ test('createRepository with valid data (happy path)', async () => {
   const name = `test-repo-${Date.now()}`;
   const url = 'https://github.com/test/repo';
 
-  const result = await createRepositoryMutation.resolve(null, { name, url }, context);
+  const result = await createRepositoryMutation.resolve(null, { input: { name, url } }, context);
 
   expect(result).toBeDefined();
   expect(result.repositoryID).toBeDefined();
@@ -29,10 +29,10 @@ test('createRepository fails with duplicate name (sad path)', async () => {
   const name = `duplicate-repo-${Date.now()}`;
   const url = 'https://github.com/test/duplicate';
 
-  await createRepositoryMutation.resolve(null, { name, url }, context);
+  await createRepositoryMutation.resolve(null, { input: { name, url } }, context);
 
   await expect(
-    createRepositoryMutation.resolve(null, { name, url }, context)
+    createRepositoryMutation.resolve(null, { input: { name, url } }, context)
   ).rejects.toThrow('A repository with this name already exists');
 });
 
@@ -41,7 +41,7 @@ test('createRepository requires authentication (sad path)', async () => {
   const url = 'https://github.com/test/auth';
 
   await expect(
-    createRepositoryMutation.resolve(null, { name, url }, {})
+    createRepositoryMutation.resolve(null, { input: { name, url } }, {})
   ).rejects.toThrow('Not authenticated');
 });
 
@@ -62,6 +62,6 @@ test('createRepository requires Admin or Manager role (sad path)', async () => {
   const url = 'https://github.com/test/unauthorized';
 
   await expect(
-    createRepositoryMutation.resolve(null, { name, url }, context)
+    createRepositoryMutation.resolve(null, { input: { name, url } }, context)
   ).rejects.toThrow('Not authorized');
 });
