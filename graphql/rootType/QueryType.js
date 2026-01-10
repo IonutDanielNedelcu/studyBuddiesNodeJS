@@ -10,6 +10,7 @@ const teams = require('../queries/teamsQuery');
 const teamByName = require('../queries/teamByNameQuery');
 const userByUsername = require('../queries/userByUsernameQuery');
 const projects = require('../queries/projectsQuery');
+const projectByName = require('../queries/projectByNameQuery');
 const repositories = require('../queries/repositoriesQuery');
 const repositoryByName = require('../queries/repositoryByNameQuery');
 const projectsByUser = require('../queries/projectsByUserQuery');
@@ -57,6 +58,7 @@ const QueryType = new GraphQLObjectType({
     userByUsername,
     role,
     projects,
+    projectByName,
     repositories,
     repositoryByName,
     projectsByUser,
